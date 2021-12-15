@@ -21,7 +21,7 @@
     created: function () {},
     methods: {
       submit1: function () {
-        this.$router.push("/login");
+        // this.$router.push("/login");
       },
       submit2: function () {
         this.$router.push("/services/new");

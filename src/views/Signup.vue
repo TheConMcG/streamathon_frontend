@@ -32,7 +32,13 @@
   export default {
     data: function () {
       return {
-        newUserParams: {},
+        newUserParams: {
+          name: "tester8",
+          email: "tester8@tester.com",
+          password: "password",
+          password_confirmation: "password"
+        },
+        newSessionParams: {},
         errors: []
       };
     },
@@ -42,7 +48,11 @@
           .post("/users", this.newUserParams)
           .then((response) => {
             console.log(response.data);
-            this.$router.push("/login");
+            // debugger;
+            axios.defaults.headers.common["Authorization"] =
+              "Bearer " + response.data.jwt;
+            localStorage.setItem("jwt", response.data.jwt);
+            this.$router.push("/services/new");
           })
           .catch((error) => {
             this.errors = error.response.data.errors;
