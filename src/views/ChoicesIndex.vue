@@ -34,15 +34,8 @@
         urls: [],
       };
     },
-    // mounted() {
-    //   if (localStorage.source_ids) {
-    //     this.source_ids = localStorage.source_ids;
-    //   }
-    // },
     created: function () {
       this.choicesIndex();
-      // setTimeout(() => { this.photosIndex() }, 2000);
-      // setTimeout(() => { this.urlsIndex() }, 2000);
     },
     methods: {
       choicesIndex: function () {
@@ -56,24 +49,6 @@
             this.errors = ["User must be logged in to use this service."];
         })
       },
-      // photosIndex: function () {
-      //   console.log('in photos index')
-      //   for (let i = 0; i < this.choices.length; i++) {
-      //     axios.get(`/photos/${this.choices[i]['tmdb_id']}?tmdb_type=${this.choices[i]['tmdb_type']}`).then(response => {
-      //       this.movies.push(response.data)
-      //     });
-      //   }
-      // },
-      // urlsIndex: function () {
-      //   console.log('in urls index')
-      //   for (let i = 0; i < this.choices.length; i++) {
-      //     axios.get(`/urls/${this.choices[i]['id']}`).then(response => {
-      //       console.log(response.data);
-      //       this.urls.push(response.data)
-      //     });
-
-      //   }
-      // },
       removeMovie: function (theChoice) {
         console.log('in the movie eliminator')
         let i = this.choices.indexOf(theChoice)

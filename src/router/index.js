@@ -5,7 +5,6 @@ import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import ChoicesIndex from "../views/ChoicesIndex.vue";
-import PhotosIndex from "../views/ChoicesIndex.vue";
 import ServicesNew from '../views/ServicesNew.vue'
 import Account from "../views/Account.vue";
 
@@ -44,11 +43,6 @@ const routes = [
     path: "/choices",
     name: "ChoicesIndex",
     component: ChoicesIndex
-  },
-  {
-    path: "/photos/:id",
-    name: "PhotosIndex",
-    component: PhotosIndex
   },
   {
     path: "/services/new",
