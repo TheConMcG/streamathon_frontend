@@ -1,19 +1,66 @@
 <template>
   <div class="home">
-    <h1>{{ message }}</h1>
-    <ul>
-      <div v-for="error in errors" v-bind:key="error">{{ error }}</div>
-    </ul>
-    <div v-for="choice in choices">
-      <img :src="`https://image.tmdb.org/t/p/w500/${choice[0].poster_path}`">
-      <p>title: {{ choice[0].title || choice[0].original_name }} </p>
-      <p>Rating Average: {{ choice[0].vote_average  }}/10 ({{ choice[0].vote_count }} votes)</p>
-      <p>description: {{ choice[0].overview }} </p>
-      <button v-on:click="removeMovie(choice)">Eliminate Option</button>
-      <br />
-      <a :href="`${choice[0].urls[0].web_url}`"><button>Link</button></a>
-      <hr />
+    <!-- Intro -->
+    <div id="intro">
+      <h1>How To<br />
+        Decide?</h1>
+      <p>{{ message }}<br /></p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
     </div>
+    <!-- Nav -->
+    <nav id="nav">
+      <ul class="links">
+        <li class="active"><a href="/">Streamathon</a></li>
+        <li v-if="!$parent.isLoggedIn()"><a href="/signup">Signup</a></li>
+        <li><a href="/account">Account</a></li>
+      </ul>
+    </nav>
+    <!-- Main -->
+    <div id="main">
+      <!-- Featured Post -->
+      <!-- <article class="post featured">
+        <header class="major">
+          <span class="date">April 25, 2017</span>
+          <h2><a href="#">And this is a<br />
+          massive headline</a></h2>
+          <p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
+          facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
+          amet nullam sed etiam veroeros.</p>
+        </header>
+        <a href="#" class="image main"><img src="images/pic01.jpg" alt="" /></a>
+        <ul class="actions special">
+          <li><a href="#" class="button large">Full Story</a></li>
+        </ul>
+      </article> -->
+      <!-- Posts -->
+      <section class="posts">
+        <article v-for="choice in choices">
+          <header>
+            <h2><a href="#">{{ choice[0].title || choice[0].original_name }}</a></h2>
+            <h4><a href="#">Rating Average: {{ choice[0].vote_average  }}/10 ({{ choice[0].vote_count }} votes)</a></h4>
+          </header>
+          <a href="#" class="image fit"><img :src="`https://image.tmdb.org/t/p/w500/${choice[0].poster_path}`" alt="" /></a>
+          <h5>description: {{ choice[0].overview }} </h5>
+          <ul class="actions special">
+            <li><a href="#" class="button" v-on:click="removeMovie(choice)">Eliminate Option</a></li>
+            <li><a :href="`${choice[0].urls[0].web_url}`" class="button">Watch Now!</a></li>
+          </ul>
+        </article>
+      </section>
+    </div>
+        <!-- <div >
+        <img :src="`https://image.tmdb.org/t/p/w500/${choice[0].poster_path}`">
+        <p>title: {{ choice[0].title || choice[0].original_name }} </p>
+        <p>Rating Average: {{ choice[0].vote_average  }}/10 ({{ choice[0].vote_count }} votes)</p>
+        <p>description: {{ choice[0].overview }} </p>
+        <button v-on:click="removeMovie(choice)">Eliminate Option</button>
+        <br />
+        <a :href="`${choice[0].urls[0].web_url}`"><button>Link</button></a>
+        <hr />
+        </div> -->
+
   </div>
 </template>
 
@@ -25,13 +72,10 @@
   export default {
     data: function () {
       return {
-        message: "Rules of the Game: you currently have five random options from across your streaming platforms. We take turn eliminating options until you're left with something to watch. Picking something has never been easier!",
+        message: "You currently have three random options from across your streaming platforms. We take turns eliminating options until you're left with something to watch. Picking something has never been easier!",
+        message2: "",
         choices: {},
-        source_ids: [],
-        movies: [],
-        currentMovie: {},
         errors: [],
-        urls: [],
       };
     },
     created: function () {
