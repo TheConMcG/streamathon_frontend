@@ -20,6 +20,7 @@
 		</nav>
 		<!-- Main -->
 		<div id="main">
+      <h2>Please select the streaming services you currently have subscriptions to:</h2>
       <div class="signup">
         <form v-on:submit.prevent="submit()">
           <input type="checkbox" id="hulu" value="157" v-model="checkedServices">
@@ -38,10 +39,6 @@
           <span>Checked Services: {{ checkedServices }}</span>
           <br />
           <input type="submit" value="Submit" />
-          <!-- <div class="col-6 col-12-small">
-            <input type="checkbox" id="demo-copy" name="demo-copy">
-            <label for="demo-copy">Email me a copy</label>
-          </div> -->
         </form>
       </div>
 		</div>

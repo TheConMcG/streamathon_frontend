@@ -19,22 +19,6 @@
     </nav>
     <!-- Main -->
     <div id="main">
-      <!-- Featured Post -->
-      <!-- <article class="post featured">
-        <header class="major">
-          <span class="date">April 25, 2017</span>
-          <h2><a href="#">And this is a<br />
-          massive headline</a></h2>
-          <p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
-          facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
-          amet nullam sed etiam veroeros.</p>
-        </header>
-        <a href="#" class="image main"><img src="images/pic01.jpg" alt="" /></a>
-        <ul class="actions special">
-          <li><a href="#" class="button large">Full Story</a></li>
-        </ul>
-      </article> -->
-      <!-- Posts -->
       <section class="posts">
         <article v-for="choice in choices">
           <header>
@@ -50,17 +34,6 @@
         </article>
       </section>
     </div>
-        <!-- <div >
-        <img :src="`https://image.tmdb.org/t/p/w500/${choice[0].poster_path}`">
-        <p>title: {{ choice[0].title || choice[0].original_name }} </p>
-        <p>Rating Average: {{ choice[0].vote_average  }}/10 ({{ choice[0].vote_count }} votes)</p>
-        <p>description: {{ choice[0].overview }} </p>
-        <button v-on:click="removeMovie(choice)">Eliminate Option</button>
-        <br />
-        <a :href="`${choice[0].urls[0].web_url}`"><button>Link</button></a>
-        <hr />
-        </div> -->
-
   </div>
 </template>
 
@@ -72,10 +45,15 @@
   export default {
     data: function () {
       return {
-        message: "You currently have three random options from across your streaming platforms. We take turns eliminating options until you're left with something to watch. Picking something has never been easier!",
+        message: "You currently have options from across your streaming platforms. We take turns eliminating them until you're left with something to watch. Picking something has never been easier!",
         message2: "",
         choices: {},
         errors: [],
+        choiceParams: {
+          limit: this.$route.query.limit,
+          genre: this.$route.query.genre,
+          tmdb_type: this.$route.query.tmdb_type,
+        },
       };
     },
     created: function () {
@@ -83,8 +61,7 @@
     },
     methods: {
       choicesIndex: function () {
-        console.log('in choices index')
-        axios.get("/choices").then(response => {
+        axios.get(`/choices?limit=${this.choiceParams["limit"]}&genre=${this.choiceParams["genre"]}&tmdb_type=${this.choiceParams["tmdb_type"]}`).then(response => {
           console.log(response.data)
           this.choices = response.data;
         })
@@ -94,7 +71,6 @@
         })
       },
       removeMovie: function (theChoice) {
-        console.log('in the movie eliminator')
         let i = this.choices.indexOf(theChoice)
         this.choices.splice(i, 1);
         if (this.choices.length === 4) {
